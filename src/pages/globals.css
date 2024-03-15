@@ -1,0 +1,203 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS Variables */
+:root {
+  --navbar-height: 60px; /* Adjust based on your navbar's actual height */
+  --primary-color: #4f46e5; /* Example primary color */
+  --secondary-color: #64748b; /* Example secondary color */
+}
+
+/* Base Styling */
+body {
+  font-family: 'Inter', sans-serif; /* Example custom font */
+}
+
+a {
+  color: var(--primary-color);
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: var(--secondary-color);
+}
+
+/* Utility Classes */
+.main-content {
+  padding-top: var(--navbar-height); /* This directly uses the navbar height variable */
+}
+
+/* Example custom class for buttons */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem; /* 6px */
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: darken(var(--primary-color), 10%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  :root {
+    --navbar-height: 50px; /* Slightly reduce navbar height for smaller screens */
+  }
+
+  .main-content {
+    padding-top: var(--navbar-height); /* Directly use the adjusted navbar height */
+  }
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  color: #ffffff;
+  background: #191c1f;
+  --color-primary: #fada3f;
+  --color-secondary: #ff2136;
+  --color-tertiary: #0294fe;
+  --color-quaternary: #9b4dff;
+  --card-background: #252133;
+  --highlighted-background: #202326;
+  font-weight: 400;
+}
+
+h1, h3 {
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: 1.5;
+}
+
+h3 {
+  font-size: 22px;
+  line-height: 28px;
+  margin-bottom: 0px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Animation effects */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-slideInDown, .animate-slideInUp {
+  animation: 0.8s ease-out forwards;
+}
+
+.animate-slideInDown {
+  animation-name: slideInDown;
+}
+
+.animate-slideInUp {
+  animation-name: slideInUp;
+}
+
+/* Stagger animations */
+.delay-150 {
+  animation-delay: 0.15s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+/* Rainbow text effect */
+.rainbow-text {
+  background: linear-gradient(90deg, #f22, #f2f, #22f, #2ff, #2f2, #ff2, #f22);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* Hide the original text color */
+  animation: rainbow-animation 3s ease-in-out infinite;
+  background-size: 400% 100%;
+}
+
+@keyframes rainbow-animation {
+  0%, 100% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 100% 0;
+  }
+}
+
+/* Slick Carousel overrides */
+.slick-slide img {
+  display: block;
+  margin: auto;
+}
+
+.slick-dots {
+  bottom: -30px;
+}
+
+.slick-prev, .slick-next {
+  color: #fff;
+  z-index: 1;
+}
+
+.slick-prev:before, .slick-next:before {
+  font-size: 30px;
+  color: #ffffff;
+}
+
+/* Responsive adjustments for slick carousel */
+@media (max-width: 768px) {
+  .slick-slide h3 {
+    font-size: 16px;
+  }
+
+  .slick-slide p {
+    font-size: 14px;
+  }
+}

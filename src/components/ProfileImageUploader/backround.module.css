@@ -1,0 +1,75 @@
+.modalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+  }
+  
+  .modalContainer {
+    background-color: #2b5cc0; 
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 80%; 
+    max-width: 600px; 
+  }
+  
+ 
+  .nftPreview {
+    width: auto; 
+    max-width: 100%; 
+    height: auto; 
+    max-height: 300px; 
+    border-radius: 0; 
+  }
+  
+  .fileInput, .textInput, .textareaInput {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 0;
+    width: 100%; 
+  }
+
+  .closeButton {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white; 
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  
+  .mintButton {
+    background-color: #007bff;  
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; 
+  }
+  .titleDescription {
+    color: #fffb04; 
+    font-size: 2.25rem; 
+    text-decoration: underline; 
+    margin-bottom: 2rem; 
+    text-align: center; 
+  }
+  .relative {
+    padding-top: 2rem; 
+  }
+  
+  
+  

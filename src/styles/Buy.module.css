@@ -1,0 +1,56 @@
+/* Adjust the container holding the NFTs for optimal display and scrolling */
+.nftGridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust min item width */
+  gap: 20px; /* Space between items */
+  padding: 20px;
+  padding-top: 70px; /* Adjust for any fixed element, like a Navbar */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  width: 100%; /* Full width to utilize available space */
+}
+
+/* Style adjustments for individual NFT containers */
+.nftContainer {
+  position: relative;
+  overflow: visible; /* Ensure all content, including tooltips or dropdowns, is visible */
+  border-radius: 8px;
+  backface-visibility: hidden;
+  outline: 1px solid rgba(255, 255, 255, 0.1); /* Subtle outline for depth */
+  transform: translate3d(0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  transition: transform 0.25s ease-in-out;
+  max-height: auto; /* Allows for dynamic height adjustment */
+  width: 100%; /* Ensures the container uses the full width of the grid cell */
+}
+
+/* Enhance visual interaction on hover */
+.nftContainer:hover {
+  cursor: pointer;
+  transform: translateY(-4px); /* Slight upward lift */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+  .nftGridContainer {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Smaller columns on small screens */
+  }
+}
+
+/* Ensure images within NFT containers are responsive */
+.nftContainer img {
+  max-width: 100%; /* Full width of the container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Style for NFT titles and prices for ellipsis overflow */
+.nftContainer .nftName, .nftContainer .nftPriceValue {
+  text-align: center;
+  width: 90%; /* Adjust based on container size */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Ellipsis for overflowing text */
+  white-space: nowrap; /* Prevent wrapping */
+}

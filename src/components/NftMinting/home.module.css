@@ -1,0 +1,95 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  gap: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.featuresContainer {
+  display: flex;
+  flex-direction: row; /* Keeps items in a row */
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #888 #ffffff; /* For Firefox */
+  width: 100%;
+  padding-bottom: 1rem; /* Adds some space below the scrollbar */
+}
+
+/* Styles for the scrollbar for webkit browsers (Chrome, Safari, etc.) */
+.featuresContainer::-webkit-scrollbar {
+  height: 8px; /* Height of the scrollbar */
+}
+
+.featuresContainer::-webkit-scrollbar-track {
+  background: #ffffff; /* Track color */
+}
+
+.featuresContainer::-webkit-scrollbar-thumb {
+  background-color: #888; /* Scrollbar color */
+  border-radius: 4px;
+}
+
+.textContent, .featuresList {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.text, .listItem {
+  font-size: 1rem;
+  color: #666;
+}
+
+
+.button, .outlineButton {
+  font-size: 1rem;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 1rem;
+  border: none;
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+}
+
+.outlineButton {
+  background-color: transparent;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+.heroImage {
+  width: 100%;
+  max-width: 999px; /* Adjust based on your design preference */
+  height: auto;
+  object-fit: cover;
+}
+
+.additionalImage {
+  display: block; /* Ensures the image is shown if conditionally rendered */
+  width: 100%;
+  max-width: 999px; /* Smaller than the hero image */
+  height: auto;
+  object-fit: cover;
+  margin-top: 140px; /* Space between the first and additional images */
+}
+
+@media (max-width: 768px) {
+  .additionalImage {
+    max-width: 450px; /* Smaller on narrow screens */
+    margin-top: 20px;
+  }
+}
