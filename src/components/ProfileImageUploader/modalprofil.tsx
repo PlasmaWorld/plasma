@@ -7,70 +7,81 @@ import { IotexNetworkTestnet } from "@thirdweb-dev/chains";
 const CONTRACT_ADDRESS = "0x4ae6FA0e0ba62Fc852961da745615B159bBE5e6b";
 
   const NewModal = ({ onRequestClose }) => {
-  const [imageUrl, setImageUrl] = useState("/1.png"); // Initial image
-  const [nftName, setNftName] = useState("");
-  const [nftDescription, setNftDescription] = useState("");
-  const fileInputRef = useRef(null);
-  const { mutateAsync: uploadToIPFS } = useStorageUpload();
-  const { contract } = useContract(CONTRACT_ADDRESS);
-  const engine = new Engine({
-    url: process.env.TW_ENGINE_UR,
-    accessToken: process.env.TW_ACCESS_TOKEN,
-  });
-  const address = useAddress();
-
-  const handleChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
+    const address = useAddress();
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [nftName, setNftName] = useState<string>("");
+    const [nftDescription, setNftDescription] = useState<string>("");
+    const [mintingNFT, setMintingNFT] = useState<boolean>(false);
+  
+    const processFile = (file: File) => {
+      console.log("Processing file for preview:", file.name);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImageUrl(reader.result.toString());
+        setImageUrl(reader.result as string);
+        console.log("File loaded for preview");
       };
       reader.readAsDataURL(file);
-    }
-  };
-
-  const handleMint = async () => {
-    if (!fileInputRef.current.files[0]) {
-      console.error("No file selected");
-      return;
-    }
+    };
   
-    const file = fileInputRef.current.files[0];
-    try {
-      const imageUris = await uploadToIPFS({ data: [file] });
-      if (imageUris.length === 0) {
-        throw new Error("Failed to upload file to IPFS");
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      console.log("Handling file input change");
+      const files = e.target.files;
+      if (files && files.length > 0) {
+        console.log("File selected:", files[0].name);
+        processFile(files[0]);
       }
+    };
   
-      const metadata = {
-        name: nftName,
-        description: nftDescription,
-        image: imageUris[0],
-      };
+    const handleFileSelect = () => {
+      console.log("File input clicked");
+      fileInputRef.current?.click();
+    };
   
-      const metadataBlob = new Blob([JSON.stringify(metadata)], { type: 'application/json' });
-      const metadataUris = await uploadToIPFS({ data: [new File([metadataBlob], "metadata.json")] });
-      if (metadataUris.length === 0) {
-        throw new Error("Failed to upload metadata to IPFS");
+    const reset = () => {
+      console.log("Resetting form");
+      setImageUrl(null);
+      setNftName("");
+      setNftDescription("");
+    };
+  
+    const handleMint = async () => {
+      console.log("Minting process started");
+      if (!fileInputRef.current || !fileInputRef.current.files || fileInputRef.current.files.length === 0) {
+        console.error("No file selected");
+        return;
       }
+    
+      setMintingNFT(true);
+      try {
+        const formData = new FormData();
+        formData.append('name', nftName);
+        formData.append('description', nftDescription);
+        formData.append('image', fileInputRef.current.files[0]);
+        formData.append('address', address || '');
+    
+        console.log("Sending mint request to server");
+        const response = await fetch("/api/mintNFT", {
+          method: "POST",
+          body: formData,
+        });
+    
+        const data = await response.json();
+    
+        if (!response.ok) {
+          throw new Error(data.message || "Something went wrong");
+        }
+        console.log("NFT minted successfully:", data);
+      } catch (error) {
+        console.error("Minting error:", error);
+      } finally {
+        alert("NFT minted!"); // Consider replacing this with a more user-friendly notification
+        setMintingNFT(false);
+        reset(); // This already clears the form, so no need to repeat those steps
+      }
+    };
   
-      await engine.erc721.mintTo(
-        IotexNetworkTestnet.chain, // The blockchain network chain
-        CONTRACT_ADDRESS, // The contract address you're interacting with
-        process.env.TW_BACKEND_WALLET, // The backend wallet address, assuming this is correct as per your setup
-        {
-          receiver: process.env.TW_BACKEND_WALLET, // The address to receive the minted NFT, adjust as needed
-          metadata: JSON.stringify(metadata), // The metadata for the NFT
-          // Include any transaction overrides if necessary
-        },
-        false, // Whether to simulate the transaction or not
-        // You can include the smart account address if applicable
-      );
-    } catch (error) {
-      console.error("Error during NFT minting:", error);
-    }
-  };
+    console.log("Rendering component", { address, imageUrl, nftName, nftDescription, mintingNFT });
   
 
 
